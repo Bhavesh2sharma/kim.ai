@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { gsap } from 'gsap';
 import {
   FaLinkedin,
@@ -6,7 +6,6 @@ import {
   FaYoutube,
   FaEnvelope
 } from 'react-icons/fa6';
-// import SoundFlare from '../../assets/images/Cloudflare_Logo.svg';
 
 const ContactForm = () => {
     const [name, setName] = useState('');
@@ -29,10 +28,8 @@ const ContactForm = () => {
         fileInputRef.current.click();
     };
 
-    // New function to handle file removal
     const handleRemoveFile = () => {
         setFileName('');
-        // Reset the file input value so the same file can be selected again
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
@@ -66,14 +63,13 @@ const ContactForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Form submission logic here
         console.log({ name, email, info });
     };
 
     return (
-        <section className="py-12 sm:py-16 md:py-14 bg-[#f9fbfb] flex justify-center items-center w-full shadow-2xl">
+        <section className="py-12 sm:py-16 md:py-14 bg-[#f9fbfb] flex justify-center items-center w-full">
             <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-6 lg:gap-20">
-                {/* Left side with heading (outside the card) */}
+                {/* Left side with heading - Desktop social icons included here */}
                 <div className="w-full md:w-3/5 mb-8 md:mb-0">
                     <div className="text-left">
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#DD5100] leading-tight mt-4">
@@ -87,26 +83,26 @@ const ContactForm = () => {
                             </div>
                         </h2>
                     </div>
-                    {/* Social Icons */}
-         <div className="flex gap-20 mt-20 text-7xl justify-center items-center">
-           <a href="#" aria-label="Email">
-             <FaEnvelope className="hover:text-[#DD5100] transition duration-300" />
-           </a>
-           <a href="#" aria-label="LinkedIn">
-             <FaLinkedin className="hover:text-[#DD5100] transition duration-300" />
-           </a>
-           <a href="#" aria-label="X (Twitter)">
-             <FaXTwitter className="hover:text-[#DD5100] transition duration-300" />
-           </a>
-           <a href="#" aria-label="YouTube">
-             <FaYoutube className="hover:text-[#DD5100] transition duration-300" />
-           </a>
-         </div>
+                    {/* Desktop Social Icons - hidden on mobile */}
+                    <div className="hidden md:flex gap-8 lg:gap-20 mt-12 md:mt-20 text-5xl lg:text-6xl justify-center md:justify-start">
+                        <a href="#" aria-label="Email" className="hover:text-[#DD5100] transition duration-300">
+                            <FaEnvelope />
+                        </a>
+                        <a href="#" aria-label="LinkedIn" className="hover:text-[#DD5100] transition duration-300">
+                            <FaLinkedin />
+                        </a>
+                        <a href="#" aria-label="X (Twitter)" className="hover:text-[#DD5100] transition duration-300">
+                            <FaXTwitter />
+                        </a>
+                        <a href="#" aria-label="YouTube" className="hover:text-[#DD5100] transition duration-300">
+                            <FaYoutube />
+                        </a>
+                    </div>
                 </div>
 
-                {/* Right side with form (inside the card) */}
+                {/* Right side with form */}
                 <div className="w-full md:w-3/5">
-                    <div className="bg-white rounded-xl shadow-xl p-6 sm:p-8 md:p-10 border border-gray-100">
+                    <div className="bg-white rounded-xl p-6 sm:p-8 md:p-10 border border-gray-100">
                         {/* Contact person */}
                         <div className="mb-6 sm:mb-10 flex items-center">
                             <div className="mr-4">
@@ -116,18 +112,6 @@ const ContactForm = () => {
                                     className="w-16 h-16 sm:w-16 sm:h-16 object-cover"
                                 />
                             </div>
-                            {/* <div>
-                                <div className="text-sm sm:text-base font-bold text-gray-800">John Snow</div>
-                                <div className="text-xs sm:text-sm text-gray-600">Business Development Executive</div>
-                                <div className="mt-1">
-                                    <a
-                                        href="#"
-                                        className="text-[#1a5c8d]"
-                                    >
-                                        <i className="fab fa-linkedin" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div> */}
                         </div>
 
                         {/* Form */}
@@ -203,7 +187,6 @@ const ContactForm = () => {
                                 </div>
                             )}
 
-                            {/* Made responsive with flex-col on mobile and flex-row on larger screens */}
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 mt-12 sm:mt-16 md:mt-20">
                                 <div className="relative inline-block mb-4 sm:mb-0">
                                     <button
@@ -250,6 +233,22 @@ const ContactForm = () => {
                                 </div>
                             </div>
                         </form>
+                    </div>
+
+                    {/* Mobile Social Icons - shown only on mobile below the form */}
+                    <div className="md:hidden flex justify-center gap-6 mt-8 text-4xl">
+                        <a href="#" aria-label="Email" className="hover:text-[#DD5100] transition duration-300">
+                            <FaEnvelope />
+                        </a>
+                        <a href="#" aria-label="LinkedIn" className="hover:text-[#DD5100] transition duration-300">
+                            <FaLinkedin />
+                        </a>
+                        <a href="#" aria-label="X (Twitter)" className="hover:text-[#DD5100] transition duration-300">
+                            <FaXTwitter />
+                        </a>
+                        <a href="#" aria-label="YouTube" className="hover:text-[#DD5100] transition duration-300">
+                            <FaYoutube />
+                        </a>
                     </div>
                 </div>
             </div>
