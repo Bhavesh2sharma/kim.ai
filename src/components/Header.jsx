@@ -197,9 +197,9 @@ const Header = ({ onNavigate }) => {
           {/* Logo - Center on mobile, Left on desktop */}
           <button 
             onClick={() => handleButtonClick('home', '/')}
-            className="flex items-center z-10 lg:order-1 cursor-pointer ml-1 lg:ml-10 absolute left-1/2 transform -translate-x-1/2 lg:relative lg:left-auto lg:transform-none"
+            className="flex items-center z-10 lg:order-1 cursor-pointer ml-1 lg:ml-22 absolute left-1/2 transform -translate-x-1/2 lg:relative lg:left-auto lg:transform-none"
           >
-            <img src="/KimAi.png" alt="Kimova Logo" className="h-8 sm:h-10 lg:h-12 object-contain" />
+            <img src="/Kimova_Single_Bold.png" alt="Kimova Logo" className="h-8 sm:h-10 lg:h-16 object-contain" />
           </button>
 
           {/* Desktop Navigation - Center */}

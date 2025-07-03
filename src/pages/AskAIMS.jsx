@@ -1,12 +1,49 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { FileText, MessageCircle, RefreshCw, ArrowRight, CheckCircle, Users, Award, Zap, Brain, Shield } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import "@fontsource/poppins"; // Loads default weight (400)
+
+
 
 export default function AskAIMSLanding() {
+  // Reusable button component with animation (copied from AIAgents.jsx)
+  const AnimatedButton = ({ children, text, className = "" }) => {
+    const buttonRef = useRef(null);
+    const pseudoElementRef = useRef(null);
+
+    const handleMouseEnter = () => {
+      const pseudoEl = pseudoElementRef.current;
+      pseudoEl.style.transition = "all 0.4s ease-in-out";
+      pseudoEl.style.width = "250%";
+      pseudoEl.style.backgroundColor = "#DD5100";
+    };
+
+    const handleMouseLeave = () => {
+      const pseudoEl = pseudoElementRef.current;
+      pseudoEl.style.width = "0";
+    };
+
+    return (
+      <button
+        ref={buttonRef}
+        className={`group/btn bg-white text-[#DD5100] hover:text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl relative overflow-hidden border-2 border-white ${className}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <span className="relative z-10">{text}</span>
+        <span className="relative z-10">{children}</span>
+        <span
+          ref={pseudoElementRef}
+          className="absolute left-[-20px] w-0 h-[500px] bg-[#DD5100] rotate-[-29deg] transition-all duration-400"
+        ></span>
+      </button>
+    );
+  };
+
   return (
     
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white font-pangram">
       <Header />
       
       {/* Hero Section */}
@@ -24,13 +61,22 @@ export default function AskAIMSLanding() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-              <button className="group relative inline-flex items-center gap-4 bg-white text-[#DD5100] hover:bg-[#DD5100] hover:text-white font-semibold py-4 px-8 rounded-full transition-all duration-500 hover:shadow-2xl hover:shadow-[#DD5100]/30 hover:scale-105 border-2 border-white">
+              {/* <button className="group relative inline-flex items-center gap-4 bg-white text-[#DD5100] hover:bg-[#DD5100] hover:text-white font-semibold py-4 px-8 rounded-full transition-all duration-500 hover:shadow-2xl hover:shadow-[#DD5100]/30 hover:scale-105 border-2 border-white">
                 <span className="text-lg">Try Ask AIMS for Free</span>
                 <div className="relative ml-2">
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                   <div className="absolute -inset-3 border border-white rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-140 transition-all duration-500"></div>
                 </div>
-              </button>
+              </button> */}
+              
+              {/* New styled button using AnimatedButton component */}
+              <AnimatedButton 
+                text="Try Ask AIMS for Free" 
+                className="text-lg py-5 px-10 rounded-full"
+              >
+                <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform duration-300" />
+              </AnimatedButton>
+              
               {/* <button className="group relative inline-flex items-center gap-3 bg-transparent border-2 border-white text-white hover:bg-white hover:text-[#DD5100] font-semibold py-4 px-8 rounded-full transition-all duration-500 hover:shadow-2xl hover:shadow-white/30 hover:scale-105">
                 <span className="text-lg">Contact Us</span>
               </button> */}
@@ -114,7 +160,7 @@ export default function AskAIMSLanding() {
       </div>
 
       {/* CTA Section */}
-      <div className="py-16 md:py-20 bg-gradient-to-r from-blue-600 to-yellow-500">
+      <div className="py-16 md:py-20 bg-[#DD5100]">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
@@ -127,13 +173,22 @@ export default function AskAIMSLanding() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button className="group relative inline-flex items-center gap-4 bg-white text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-4 px-10 rounded-full transition-all duration-500 hover:shadow-2xl hover:shadow-blue-600/30 hover:scale-105 border-2 border-white">
+              {/* <button className="group relative inline-flex items-center gap-4 bg-white text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-4 px-10 rounded-full transition-all duration-500 hover:shadow-2xl hover:shadow-blue-600/30 hover:scale-105 border-2 border-white">
                 <span className="text-lg">Try Ask AIMS for Free</span>
                 <div className="relative ml-2">
                   <Zap className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                   <div className="absolute -inset-3 border border-white rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-140 transition-all duration-500"></div>
                 </div>
-              </button>
+              </button> */}
+              
+              {/* New styled button using AnimatedButton component */}
+              <AnimatedButton 
+                text="Try Ask AIMS for Free" 
+                className="text-lg py-5 px-10 rounded-full"
+              >
+                <Zap className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform duration-300" />
+              </AnimatedButton>
+              
               {/* <button className="group relative inline-flex items-center gap-3 bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold py-4 px-10 rounded-full transition-all duration-500 hover:shadow-2xl hover:shadow-white/30 hover:scale-105">
                 <span className="text-lg">Contact Us</span>
               </button> */}
