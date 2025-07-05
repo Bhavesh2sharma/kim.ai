@@ -43,7 +43,7 @@ const FAQ = () => {
     ];
 
     return (
-        <div className="py-8 mt-12 md:py-16 font-sans bg-gray-50">
+        <div className="py-8 mt-12 md:py-16 font-sans bg-white">
             <section className="container mx-auto px-4 md:flex md:flex-row gap-16 max-w-7xl">
                 <div className="flex-1 flex flex-col gap-10 mb-12 md:mb-0">
                     <h2 className="text-2xl md:text-5xl font-bold text-center text-gray-800 leading-tight">

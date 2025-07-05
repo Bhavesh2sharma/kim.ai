@@ -1,111 +1,109 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
 
-const SearchBar = ({ isHeaderHovered = false }) => {
-  const [searchValue, setSearchValue] = useState('');
+const SearchBar = ({ 
+  isExpanded, 
+  onSearch, 
+  placeholder = "Search...", 
+  className = "",
+  isMobile = false,
+  isVisible = true 
+}) => {
+  const [query, setQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef(null);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchValue.trim()) {
-      console.log('Searching for:', searchValue);
-      // Add your search logic here
+  useEffect(() => {
+    if (isExpanded && isVisible && inputRef.current) {
+      // Small delay to ensure the animation has started
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 200);
+    }
+  }, [isExpanded, isVisible]);
+
+  const handleSubmit = () => {
+    if (query.trim() && onSearch) {
+      onSearch(query.trim());
     }
   };
 
-  const handleInputChange = (e) => {
-    setSearchValue(e.target.value);
-  };
-
   const handleClear = () => {
-    setSearchValue('');
+    setQuery('');
+    inputRef.current?.focus();
   };
 
-  return (
-    <div className="relative z-10 w-full max-w-sm mx-auto sm:max-w-md md:max-w-lg lg:max-w-xl">
-      <div onSubmit={handleSearch} className="w-full">
-        <div 
-          className={`
-            flex items-center relative overflow-hidden cursor-pointer
-            transition-all duration-300 ease-in-out
-            ${isHeaderHovered 
-              ? 'w-full h-10 sm:h-12 md:h-14 px-4 sm:px-5 md:px-6' 
-              : 'w-20 sm:w-24 md:w-28 lg:w-32 h-8 sm:h-9 md:h-10 px-3 sm:px-4'
-            }
-            ${isFocused 
-              ? 'bg-orange-600 border-orange-400 shadow-lg ring-2 ring-orange-200' 
-              : 'bg-[#DD5100] border-[#DD5100] hover:bg-orange-600 hover:border-orange-600'
-            }
-            border-2 rounded-full shadow-md
-          `}
-        >
-          {/* Search Icon */}
-          <Search 
-            className={`
-              text-white flex-shrink-0 transition-all duration-300 ease-in-out
-              ${isHeaderHovered 
-                ? 'w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3' 
-                : 'w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2'
-              }
-            `}
-          />
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      handleClear();
+    } else if (e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
 
-          {/* Search Input */}
+  if (isMobile) {
+    return (
+      <div className={`transition-all duration-300 ease-out ${className}`}>
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
+            ref={inputRef}
             type="text"
-            value={searchValue}
-            onChange={handleInputChange}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder="Search..."
-            className={`
-              flex-1 bg-transparent border-none outline-none text-white
-              placeholder-white/70 transition-all duration-300 ease-in-out
-              ${isHeaderHovered 
-                ? 'opacity-100 w-full pointer-events-auto text-sm sm:text-base md:text-lg' 
-                : 'opacity-0 w-0 pointer-events-none text-xs sm:text-sm'
-              }
-            `}
+            onKeyDown={handleKeyDown}
+            placeholder={placeholder}
+            className={`w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-full 
+              focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent
+              transition-all duration-300 ${
+                isFocused ? 'shadow-lg' : 'shadow-md'
+              }`}
           />
-
-          {/* Search Text (visible when collapsed) */}
-          <span 
-            className={`
-              text-white font-medium whitespace-nowrap transition-all duration-300 ease-in-out
-              ${isHeaderHovered 
-                ? 'opacity-0 pointer-events-none' 
-                : 'opacity-100 text-xs sm:text-sm md:text-base'
-              }
-            `}
-          >
-            Search
-          </span>
-
-          {/* Clear Button (visible when expanded and has content) */}
-          {isHeaderHovered && searchValue && (
+          {query && (
             <button
               type="button"
               onClick={handleClear}
-              className="
-                ml-2 p-1 text-white/70 hover:text-white 
-                transition-colors duration-200 flex-shrink-0
-                focus:outline-none focus:ring-2 focus:ring-white/30 rounded-full
-              "
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 hover:text-gray-600 transition-colors"
             >
-              <X className="w-4 h-4 sm:w-5 sm:h-5" />
+              <X className="w-4 h-4" />
             </button>
           )}
         </div>
-        </div>
+      </div>
+    );
+  }
 
-      {/* Mobile-specific adjustments */}
-      <style jsx>{`
-        @media (max-width: 480px) {
-          .search-container {
-            max-width: 280px;
-          }
-        }
-      `}</style>
+  return (
+    <div className={`transition-all duration-500 ease-out ${className}`}>
+      <div className="relative">
+        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <input
+          ref={inputRef}
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder}
+          className={`w-full pl-12 pr-12 py-3 text-base border border-gray-300 rounded-full 
+            focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent
+            transition-all duration-300 ${
+              isFocused ? 'shadow-lg bg-white' : 'shadow-md bg-gray-50'
+            }`}
+        />
+        {query && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
+      </div>
     </div>
   );
 };

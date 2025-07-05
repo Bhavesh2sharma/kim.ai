@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
+import Screens from './Screens.jsx';
 
 const WelcomeHero = () => {
   const [isHovering, setIsHovering] = useState(false);
@@ -42,7 +43,6 @@ const WelcomeHero = () => {
       'absolute -inset-2 border rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-500';
 
     if (isDemo) {
-      // (Contact for Demo)
       return (
         <button
           className={`${baseClasses} bg-[#DD5100] text-white border-2 border-white hover:bg-white hover:text-[#DD5100] hover:border-[#DD5100]`}
@@ -56,7 +56,6 @@ const WelcomeHero = () => {
       );
     }
 
-    // (Try AI Free)
     return (
       <button
         className={`${baseClasses} bg-white text-[#00283b] border-2 border-[#DD5100] hover:bg-[#DD5100] hover:text-white hover:border-white`}
@@ -73,12 +72,13 @@ const WelcomeHero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#DD5100] overflow-hidden flex items-center justify-center"
+      className="relative w-full bg-[#DD5100] overflow-hidden flex items-center justify-center min-h-[90vh]"
+      
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       {/* Main Layer */}
-      <div className="relative z-20 w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 max-w-screen-2xl flex flex-col md:flex-row items-center justify-between">
+      <div className="relative z-20 w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 max-w-screen-2xl flex flex-col md:flex-row items-center justify-between py-12">
         <div className="w-full md:w-1/2 text-left">
           <h2 className="text-white text-4xl sm:text-6xl md:text-7xl xl:text-8xl font-bold mt-6 sm:mt-0 mb-8 leading-tight font-sans">
             TurboAudit
@@ -91,16 +91,8 @@ const WelcomeHero = () => {
             <GradientCTAButton text="Try AI Free" />
           </div>
         </div>
-        <div className="w-full flex justify-center mt-10 md:mt-0 relative">
-          <img
-            src="KimAi.png"
-            alt="Logo Base"
-            className="w-220 h-auto object-contain z-10"
-            style={{
-              filter:
-                'brightness(0) saturate(100%) invert(14%) sepia(99%) saturate(3781%) hue-rotate(5deg) brightness(95%) contrast(107%)',
-            }}
-          />
+        <div className="w-full flex justify-center mt-10 md:mt-0 relative md:pl-12">
+          <Screens />
         </div>
       </div>
 
@@ -114,7 +106,7 @@ const WelcomeHero = () => {
           clipPath: 'circle(0px at 0px 0px)',
         }}
       >
-        <div className="w-full h-full pointer-events-auto flex flex-col md:flex-row items-center justify-between px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 max-w-screen-2xl mx-auto">
+        <div className="w-full h-full pointer-events-auto flex flex-col md:flex-row items-center justify-between px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 max-w-screen-2xl mx-auto py-12">
           <div className="w-full md:w-1/2 text-left">
             <h2 className="text-[#DD5100] text-4xl sm:text-6xl md:text-7xl xl:text-8xl font-bold mt-6 sm:mt-0 mb-8 leading-tight font-sans">
               TurboAudit
@@ -127,12 +119,8 @@ const WelcomeHero = () => {
               <GradientCTAButton text="Try AI Free" />
             </div>
           </div>
-          <div className="w-full flex justify-center mt-10 md:mt-0 relative">
-            <img
-              src="KimAi.png"
-              alt="Logo Hover"
-              className="w-220 h-auto object-contain"
-            />
+          <div className="w-full flex justify-center mt-10 md:mt-0 relative md:pl-12">
+            <Screens />
           </div>
         </div>
       </div>
